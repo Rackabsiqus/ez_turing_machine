@@ -1,0 +1,13 @@
+.{
+    .name = .ez_turing_machine,
+    .version = "0.1.0",
+    .fingerprint = 0xfbd3198407add51a, // Changing this has security and trust implications.
+    .minimum_zig_version = "0.16.0-dev.1657+985a3565c",
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "test_runner.zig",
+        "src",
+        "examples",
+    },
+}
