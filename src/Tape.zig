@@ -56,11 +56,15 @@ pub fn Tape(Alphabet: type, blank_symbol: Alphabet) type {
             }
         }
 
-        inline fn getCurrentSymbol(this: This) *Alphabet {
-            const index = this.head_position / block_size;
-            const offset = this.head_position % block_size;
+        pub fn getSymbolAt(this: This, pos: usize) *Alphabet {
+            const index = pos / block_size;
+            const offset = pos % block_size;
 
             return &this.cells_blocks.items[index][offset];
+        }
+
+        pub fn getCurrentSymbol(this: This) *Alphabet {
+            return this.getSymbolAt(this.head_position);
         }
 
         pub fn readSymbol(this: *This, allocator: Allocator) Allocator.Error!Alphabet {
