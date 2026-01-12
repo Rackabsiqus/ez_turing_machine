@@ -30,7 +30,7 @@ pub fn Tape(Alphabet: type, blank_symbol: Alphabet) type {
 
         pub fn moveHead(this: *This, direction: Direction) void {
             switch (direction) {
-                .L => this.head_position -|= 0,
+                .L => this.head_position -|= 1,
                 .R => this.head_position += 1,
                 .S => {},
             }
