@@ -64,9 +64,22 @@ pub fn TuringMachine(
         }
 
         pub fn execute(this: *This, input: []const Alphabet) (Allocator.Error || Error)!bool {
-            _ = this;
-            _ = input;
-            @compileError("Bruh c'est le devoir à Stefanos, je mettrais cette fonction après la date de remise");
+            try this.tape.copyInput(this.allocator, input);
+            this.state = initial_state;
+
+            while (true) {
+                switch (accept(this.state)) {
+                    .accept => return true,
+                    .reject => return false,
+                    else => {},
+                }
+
+                const current_symbol = try this.tape.readSymbol(this.allocator);
+                const transition_result = try transition(this.state, current_symbol);
+                this.tape.writeSymbol(transition_result.write_symbol);
+                this.tape.moveHead(transition_result.direction);
+                this.state = transition_result.new_state;
+            }
         }
 
         fn writeSymbol(this: *This, symbol: Alphabet) void {
